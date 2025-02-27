@@ -419,11 +419,13 @@ L.Polyline.include({
 						endOffsetInMeters / totalLength
 					);
 
-					segment = segment.slice(
-						newStart.predecessor === -1 ? 1 : newStart.predecessor + 1,
-						segment.length
-					);
-					segment.unshift(newStart.latLng);
+					if (newStart) {
+						segment = segment.slice(
+							newStart.predecessor === -1 ? 1 : newStart.predecessor + 1,
+							segment.length
+						);
+						segment.unshift(newStart.latLng);
+					}
 				}
 
 				if (end) {
@@ -442,8 +444,10 @@ L.Polyline.include({
 						(totalLength - endOffsetInMeters) / totalLength
 					);
 
-					segment = segment.slice(0, newEnd.predecessor + 1);
-					segment.push(newEnd.latLng);
+					if (newEnd) {
+						segment = segment.slice(0, newEnd.predecessor + 1);
+						segment.push(newEnd.latLng);
+					}
 				}
 
 				return segment;
